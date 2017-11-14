@@ -22,12 +22,30 @@ export default class DatePicker extends Component {
     short: PropTypes.bool,
     datePickerType: PropTypes.string,
     dateFormat: PropTypes.string,
+    value: PropTypes.string,
   };
 
   static defaultProps = {
     short: false,
     dateFormat: 'm/d/Y',
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: props.value,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+      console.log('nextProps.value', nextProps.value);
+    if (nextProps.value !== this.props.value) {
+      console.log('nextProps.value', nextProps.value);
+      this.cal.setDate({ value: nextProps.value });
+      this.updateClassNames(this.cal); 
+    }
+  }
 
   componentDidMount() {
     if (
@@ -212,6 +230,7 @@ export default class DatePicker extends Component {
         });
       }
     });
+
     return (
       <div className="bx--form-item">
         <div className={datePickerClasses} {...other}>
