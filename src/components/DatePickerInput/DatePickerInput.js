@@ -16,6 +16,20 @@ export default class DatePickerInput extends Component {
     labelText: 'Please provide label text',
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: props.value,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({ value: nextProps.value });
+    }
+  }
+
   render() {
     const {
       id,
@@ -36,17 +50,24 @@ export default class DatePickerInput extends Component {
       id,
       onChange: evt => {
         if (!other.disabled) {
+          this.setState({
+            value: evt.target.value,
+          });
           onChange(evt);
         }
       },
       onClick: evt => {
         if (!other.disabled) {
+          this.setState({
+            value: evt.target.value,
+          });
           onClick(evt);
         }
       },
       placeholder,
       type,
       pattern,
+      value: this.state.value,
     };
 
     const labelClasses = classNames('bx--label', {

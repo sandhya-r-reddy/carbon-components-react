@@ -48,6 +48,7 @@ export default class DatePicker extends Component {
   }
 
   componentDidMount() {
+    console.log('coming inside datepicker compupdate');
     if (
       this.props.datePickerType === 'single' ||
       this.props.datePickerType === 'range'
